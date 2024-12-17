@@ -22,7 +22,22 @@
             // 1. update with the correct url for POKEAPI:
             const POKEAPI = "https://pokeapi.co/api/v2/pokemon/"
             // 2. use fetch to call the API
-            // and call showPokemonData with the data returned from the fetch
+            fetch(POKEAPI)
+                .then(response => {
+                    // Check if the request was successful
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // Parse JSON data
+                })
+                .then(data => {
+                    // Call showPokemonData with the data returned from the fetch
+                    showPokemonData(data);
+                })
+                .catch(error => {
+                    // Log errors (e.g., network issues, invalid responses)
+                    console.error('There was a problem with the fetch operation:', error);
+                });
         }
         getPokemonData()
     </script>
