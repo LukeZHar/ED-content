@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pokemon Encounter</title>
+        <style>
+        .pokemonType {
+            display: inline-block;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 5px;
+            color: white;
+        }
+        .grass { background-color: green; }
+        .fire { background-color: red; }
+        .water { background-color: blue; }
+        .normal { background-color: lightgrey; }
+        .poison { background-color: purple; }
+        .bug { background-color: green; }
+        .electric { background-color: yellow; }
+        .ground { background-color: brown; }
+        .fairy { background-color: pink; }
+        .fighting { background-color: darkred; }
+        .psychic { background-color: purple; }
+        .steel { background-color: lightgrey; }
+        .ice { background-color: lightblue; }
+        .rock { background-color: burlywood; }
+        .ghost { background-color: darkmagenta; }
+        .dark { background-color: black; }
+        .dragon { background-color: orange; }
+        .flying { background-color: skyblue; }
+    </style>
+    </head>
+    <body>
+        <div class="pokemonImage">
+            <img src alt="The image or sprite of the Pokemon you encountered!"
+                id="pokemon-img" />
+        </div>
+        <div class="pokemonName" id="pokemon-name"></div>
+        <div class="pokemonTypes" id="pokemon-types"></div>
+
+        <button id="create-encounter">Encounter a Pokemon!</button>
+
+        <script>
+        function getRandomNumberForPokeAPI() {
+            let suitableNumber = Math.floor(Math.random() * 808);
+            return suitableNumber;
+        }
+
+        function showPokemonData(data) {
+            // Set the image source
+            const imgElement = document.getElementById('pokemon-img');
+            imgElement.src = data.sprites.front_default;
+
+            // Display the Pokémon name
+            const nameElement = document.getElementById('pokemon-name');
+            nameElement.textContent = `Name: ${data.name}`;
+
+            // Handle Pokémon types
+            const typesElement = document.getElementById('pokemon-types');
+            typesElement.innerHTML = ''; // Clear previous types
+
+            data.types.forEach(typeInfo => {
+                const typeDiv = document.createElement('div');
+                typeDiv.className = `pokemonType ${typeInfo.type.name}`;
+                typeDiv.textContent = typeInfo.type.name;
+                typesElement.appendChild(typeDiv);
+            });
+        }
+        
+        function getPokemonData() {
+            const POKEAPI = `https://pokeapi.co/api/v2/pokemon/${getRandomNumberForPokeAPI()}/`;
+
+            fetch(POKEAPI)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    showPokemonData(data);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        // Event listener for the button
+        document.getElementById('create-encounter').addEventListener('click', getPokemonData);
+    </script>
+    </body>
+</html>

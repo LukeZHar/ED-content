@@ -20,7 +20,7 @@
         }
         function getPokemonData(){
             // 1. update with the correct url for POKEAPI:
-            const POKEAPI = "https://pokeapi.co/api/v2/pokemon/"
+            const POKEAPI = `https://pokeapi.co/api/v2/pokemon/${getRandomNumberForPokeAPI()}/`;
             // 2. use fetch to call the API
             fetch(POKEAPI)
                 .then(response => {
