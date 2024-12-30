@@ -9,26 +9,26 @@ import { ArticlePage } from './article';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-		{/* Navbar visible on all routes. */}
-		<Navbar />
+    <React.StrictMode>
+        <BrowserRouter>
+            {/* Navbar visible on all routes. */}
+            <Navbar />
 
-		{/* Per-route content set up in Routes. */}
-		<Routes>
-				<Route path="/" element={<Homepage />} />
+            {/* Per-route content set up in Routes. */}
+            <Routes>
+                <Route path="/" element={<Homepage />} />
 
-				{/* Nested routes set up as-is from the Ed lesson! */}
-				<Route path="/articles" element={<Outlet />}>
-					<Route index element={<Articles />} />
+                {/* Nested routes set up as-is from the Ed lesson! */}
+                <Route path="/articles" element={<Outlet />}>
+                    <Route index element={<Articles />} />
 
-					{/* This syntax might seem weird, but the assumption is that 
+                    {/* This syntax might seem weird, but the assumption is that 
 					the full route would be `/articles/:id` based on the syntax used for nesting. */}
-					<Route path=":id" element={<ArticlePage />} />
-				</Route>
-			</Routes>
-	</BrowserRouter>
-  </React.StrictMode>
+                    <Route path=":id" element={<ArticlePage />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
